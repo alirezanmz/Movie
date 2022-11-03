@@ -4,7 +4,7 @@
 //
 //  Created by Alireza Namazi on 4/21/22.
 //
-import Alamofire
+
 import XCTest
 @testable import Movie
 
@@ -21,15 +21,7 @@ class MovieTests: XCTestCase {
 
     
     func testFavoriteApi() throws {
-        guard let url = URL(string: Constants.APIService.FavoriteMoviesList) else { return }
-        AF.request(url, method: .get, parameters: nil).response { response in
-            switch response.result {
-            case .success:
-                XCTAssertTrue(true)
-            case .failure:
-                XCTAssertTrue(false)
-            }
-        }
+       
     }
 
     func testPerformanceExample() throws {
