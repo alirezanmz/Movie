@@ -250,7 +250,7 @@ extension MoviesViewController {
     
 
     func fetchMoviesList() {
-          apiService.getMoviesList { [weak self] response in
+          apiService.getMoviesList { [weak self] response, status in
               guard let strongSelf = self else { return }
               if let response = response {
                   strongSelf.moviesList = response.results
@@ -262,7 +262,7 @@ extension MoviesViewController {
       }
     
     func fetchFavoriteIDsList() {
-        apiService.getFavoritesList { [weak self]  Response in
+        apiService.getFavoritesList { [weak self]  Response, status in
             guard let strongSelf = self else { return }
             if let response = Response {
                 strongSelf.favoriteIDs = response.results
