@@ -24,7 +24,7 @@ struct Movies:Codable {
     let title:String?
     let rating:Float?
     let isWatched:Bool?
-    var IsSelected:Bool?
+    var isSelected:Bool?
     init(backdrop_path: String?, id: Int?, original_language: String?, original_title: String?, overview: String?, popularity: Float?, poster_path: String?, release_date: String?, title: String?, rating: Float?, isWatched: Bool?, IsSelected: Bool? = nil) {
         self.backdrop_path = backdrop_path
         self.id = id
@@ -37,6 +37,6 @@ struct Movies:Codable {
         self.title = title
         self.rating = rating
         self.isWatched = isWatched
-        self.IsSelected = IsSelected
+        self.isSelected = IsSelected
     }
 }

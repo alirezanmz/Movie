@@ -2,7 +2,7 @@ PODS:
   - Alamofire (5.5.0)
   - ANActivityIndicator (1.2.0)
   - GSMessages (1.7.5)
-  - Kingfisher (7.1.2)
+  - Kingfisher (7.9.1)
 
 DEPENDENCIES:
   - Alamofire (= 5.5.0)
@@ -21,8 +21,8 @@ SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   ANActivityIndicator: 44a996931d0c554cf157b31056603b23bbdbe76a
   GSMessages: ff0397d30b804fa38c6026fb080b8ad6f7454ab6
-  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
+  Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
 
 PODFILE CHECKSUM: 4cb49303dc2c5a14436b95f3033acec976f9aec5
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.12.1

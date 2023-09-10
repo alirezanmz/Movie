@@ -10,51 +10,47 @@ import Alamofire
 import ANActivityIndicator
 import GSMessages
 open class APIService {
-    func getMoviesList(completion: @escaping ((MoviesResponse?) -> Void)) {
+    
+    private func handleResponse<T: Decodable>(_ response: AFDataResponse<Data?>, completion: @escaping (T?, APIResponseStatus) -> Void) {
+           guard let statusCode = response.response?.statusCode else {
+               completion(nil, .failure)
+               return
+           }
+           
+        guard statusCode == 200 || statusCode == 201 else {
+               completion(nil, .failure)
+               return
+           }
+           
+           if let data = response.data {
+               let jsonDecoder = JSONDecoder()
+               do {
+                   let result = try jsonDecoder.decode(T.self, from: data)
+                   completion(result, .success)
+               } catch {
+                   print("Error decoding response data:", error)
+                   completion(nil, .failure)
+               }
+           } else {
+               completion(nil, .failure)
+           }
+       }
+       
+    
+    func getMoviesList(completion: @escaping ((MoviesResponse?, APIResponseStatus) -> Void)) {
         guard let url = URL(string: Constants.APIService.MoviesList) else { return }
             ANActivityIndicatorPresenter.shared.showIndicator()
         AF.request(url, method: .get, parameters: nil).response { response in
-            switch response.result {
-            case .success:
-                if let statusCode = response.response?.statusCode {
-                    switch statusCode {
-                    case 200:
-                        guard let data = response.data else { return }
-                        let jsonDecoder = JSONDecoder()
-                        let responseModel = try? jsonDecoder.decode(MoviesResponse.self, from: data)
-                        completion(responseModel)
-                    default:
-                        completion(nil)
-                    }
-                }
-                
-            case .failure:
-                completion(nil)
-            }
+            self.handleResponse(response, completion: completion)
             ANActivityIndicatorPresenter.shared.hideIndicator()
         }
     }
     
-    func getFavoritesList(completion: @escaping ((FavoriteResponse?) -> Void)) {
+    func getFavoritesList(completion: @escaping ((FavoriteResponse?, APIResponseStatus) -> Void)) {
         guard let url = URL(string: Constants.APIService.FavoriteMoviesList) else { return }
             ANActivityIndicatorPresenter.shared.showIndicator()
         AF.request(url, method: .get, parameters: nil).response { response in
-            switch response.result {
-            case .success:
-                if let statusCode = response.response?.statusCode {
-                    switch statusCode {
-                    case 200:
-                        guard let data = response.data else { return }
-                        let jsonDecoder = JSONDecoder()
-                        let responseModel = try? jsonDecoder.decode(FavoriteResponse.self, from: data)
-                        completion(responseModel)
-                    default:
-                        completion(nil)
-                    }
-                }
-            case .failure:
-                completion(nil)
-            }
+            self.handleResponse(response, completion: completion)
             ANActivityIndicatorPresenter.shared.hideIndicator()
         }
     }
